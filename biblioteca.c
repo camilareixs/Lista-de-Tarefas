@@ -2,6 +2,8 @@
 #include <string.h>
 #include "biblioteca.h"
 
+
+
 void carregarTarefas(struct Tarefa tarefas[], int *contador) {
     FILE *arquivo = fopen("tarefas.txt", "r");
     if (arquivo == NULL) {
@@ -10,7 +12,7 @@ void carregarTarefas(struct Tarefa tarefas[], int *contador) {
     } else {
         while (fread(&tarefas[*contador], sizeof(struct Tarefa), 1, arquivo) == 1) {
             (*contador)++;
-    }
+        }
         fclose(arquivo);
     }
 }
@@ -24,6 +26,7 @@ void salvarTarefas(struct Tarefa tarefas[], int contador) {
         fclose(arquivo);
     }
 }
+
 
 void cadastrarTarefa(struct Tarefa tarefas[], int *contador) {
     if (*contador >= 100) {
@@ -40,6 +43,11 @@ void cadastrarTarefa(struct Tarefa tarefas[], int *contador) {
     scanf(" %299[^\n]", novaTarefa.descricao);
     printf("Categoria: ");
     scanf(" %99[^\n]", novaTarefa.categoria);
+    printf("Estado da tarefa:\n");
+    printf("1 - Completo\n");
+    printf("2 - Em andamento\n");
+    printf("3 - Não iniciado\n");
+    scanf("%d", &novaTarefa.estado);
 
     tarefas[*contador] = novaTarefa;
     (*contador)++;
@@ -58,6 +66,7 @@ void listarTarefas(struct Tarefa tarefas[], int contador) {
         printf("Prioridade: %d\n", tarefas[i].prioridade);
         printf("Descrição: %s\n", tarefas[i].descricao);
         printf("Categoria: %s\n", tarefas[i].categoria);
+        printf("Estado: %d\n", tarefas[i].estado);
     }
 }
 

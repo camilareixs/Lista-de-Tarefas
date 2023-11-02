@@ -29,6 +29,7 @@ int main() {
                 salvarTarefas(tarefas, contador);
                 break;
             case 4:
+                salvarTarefas(tarefas, contador);
                 return 0;
             default:
                 printf("Opção inválida. Por favor, escolha novamente.\n");
