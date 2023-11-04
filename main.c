@@ -13,7 +13,8 @@ int main() {
         printf("1 - Adicionar nova tarefa\n");
         printf("2 - Listar todas as tarefas\n");
         printf("3 - Remover tarefa por título\n");
-        printf("4 - Sair\n");
+        printf("4 - Alterar uma tarefa\n")
+        printf("5 - Sair\n");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -29,6 +30,10 @@ int main() {
                 salvarTarefas(tarefas, contador);
                 break;
             case 4:
+                alterarTarefas(tarefas &contador);
+                salvarTarefas(tarefas, contador);
+                break   
+            case 5:
                 salvarTarefas(tarefas, contador);
                 return 0;
             default:
