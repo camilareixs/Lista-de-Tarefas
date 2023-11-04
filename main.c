@@ -6,6 +6,13 @@ int main() {
     int contador = 0;
     int opcao;
 
+    FILE *arquivo = fopen("tarefas.txt", "a+");
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo 'tarefas.txt'\n");
+        return 1; 
+    }
+    fclose(arquivo);
+
     carregarTarefas(tarefas, &contador);
 
     while (1) {
@@ -13,7 +20,7 @@ int main() {
         printf("1 - Adicionar nova tarefa\n");
         printf("2 - Listar todas as tarefas\n");
         printf("3 - Remover tarefa por título\n");
-        printf("4 - Alterar uma tarefa\n")
+        printf("4 - Alterar uma tarefa\n");
         printf("5 - Sair\n");
         scanf("%d", &opcao);
 
@@ -30,9 +37,9 @@ int main() {
                 salvarTarefas(tarefas, contador);
                 break;
             case 4:
-                alterarTarefas(tarefas &contador);
+                alterarTarefa(tarefas, &contador);
                 salvarTarefas(tarefas, contador);
-                break   
+                break;
             case 5:
                 salvarTarefas(tarefas, contador);
                 return 0;

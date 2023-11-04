@@ -8,7 +8,7 @@ void carregarTarefas(struct Tarefa tarefas[], int *contador) {
     FILE *arquivo = fopen("tarefas.txt", "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo 'tarefas.txt'\n");
-        // Adicione tratamento de erro adequado aqui, se necessário
+      
     } else {
         while (fread(&tarefas[*contador], sizeof(struct Tarefa), 1, arquivo) == 1) {
             (*contador)++;
@@ -55,20 +55,28 @@ void cadastrarTarefa(struct Tarefa tarefas[], int *contador) {
 }
 
 void listarTarefas(struct Tarefa tarefas[], int contador) {
+    int tarefasExistentes = 0; 
     if (contador == 0) {
         printf("Nenhuma tarefa encontrada.\n");
         return;
     }
-
     printf("Aqui está a lista de todas as suas tarefas:\n");
     for (int i = 0; i < contador; i++) {
-        printf("%d - Título: %s\n", i + 1, tarefas[i].titulo);
-        printf("   Prioridade: %d\n", tarefas[i].prioridade);
-        printf("   Descrição: %s\n", tarefas[i].descricao);
-        printf("   Categoria: %s\n", tarefas[i].categoria);
-        printf("   Estado: %d\n", tarefas[i].estado);
+        if (strlen(tarefas[i].titulo) > 0) {
+            tarefasExistentes++;
+            printf("%d - Título: %s\n", tarefasExistentes, tarefas[i].titulo);
+            printf("   Prioridade: %d\n", tarefas[i].prioridade);
+            printf("   Descrição: %s\n", tarefas[i].descricao);
+            printf("   Categoria: %s\n", tarefas[i].categoria);
+            printf("   Estado: %d\n", tarefas[i].estado);
+        }
+    }
+
+    if (tarefasExistentes == 0) {
+        printf("Nenhuma tarefa encontrada.\n");
     }
 }
+
 
 void removerTarefa(struct Tarefa tarefas[], int *contador) {
     if (*contador == 0) {
@@ -98,22 +106,33 @@ void removerTarefa(struct Tarefa tarefas[], int *contador) {
     }
 }
 
-void alterarTarefa(struct Tarefa tarefas[], int contador) {
-    if (contador == 0) {
+void alterarTarefa(struct Tarefa tarefas[], int *contador) {
+    if (*contador == 0) {
         printf("Nenhuma tarefa para alterar.\n");
         return;
     }
 
     printf("Aqui está a lista de todas as suas tarefas:\n");
-    for (int i = 0; i < contador; i++) {
-        printf("%d - Título: %s\n", i + 1, tarefas[i].titulo);
+    int tarefasExistentes = 0; // Variável para rastrear o número de tarefas existentes
+
+    for (int i = 0; i < *contador; i++) {
+        if (strlen(tarefas[i].titulo) > 0) {
+            // Se o título da tarefa não estiver vazio, a tarefa ainda existe
+            tarefasExistentes++;
+            printf("%d - Título: %s\n", tarefasExistentes, tarefas[i].titulo);
+        }
+    }
+
+    if (tarefasExistentes == 0) {
+        printf("Nenhuma tarefa para alterar.\n");
+        return;
     }
 
     int escolha;
     printf("Escolha o número da tarefa que deseja alterar: ");
     scanf("%d", &escolha);
 
-    if (escolha < 1 || escolha > contador) {
+    if (escolha < 1 || escolha > tarefasExistentes) {
         printf("Número de tarefa inválido.\n");
         return;
     }
