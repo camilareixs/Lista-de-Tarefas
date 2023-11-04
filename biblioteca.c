@@ -62,11 +62,11 @@ void listarTarefas(struct Tarefa tarefas[], int contador) {
 
     printf("Aqui está a lista de todas as suas tarefas:\n");
     for (int i = 0; i < contador; i++) {
-        printf("Título: %s\n", tarefas[i].titulo);
-        printf("Prioridade: %d\n", tarefas[i].prioridade);
-        printf("Descrição: %s\n", tarefas[i].descricao);
-        printf("Categoria: %s\n", tarefas[i].categoria);
-        printf("Estado: %d\n", tarefas[i].estado);
+        printf("%d - Título: %s\n", i + 1, tarefas[i].titulo);
+        printf("   Prioridade: %d\n", tarefas[i].prioridade);
+        printf("   Descrição: %s\n", tarefas[i].descricao);
+        printf("   Categoria: %s\n", tarefas[i].categoria);
+        printf("   Estado: %d\n", tarefas[i].estado);
     }
 }
 
@@ -96,4 +96,65 @@ void removerTarefa(struct Tarefa tarefas[], int *contador) {
     if (!encontrou) {
         printf("A tarefa com título '%s' não foi encontrada.\n", titulo);
     }
+}
+
+void alterarTarefa(struct Tarefa tarefas[], int contador) {
+    if (contador == 0) {
+        printf("Nenhuma tarefa para alterar.\n");
+        return;
+    }
+
+    printf("Aqui está a lista de todas as suas tarefas:\n");
+    for (int i = 0; i < contador; i++) {
+        printf("%d - Título: %s\n", i + 1, tarefas[i].titulo);
+    }
+
+    int escolha;
+    printf("Escolha o número da tarefa que deseja alterar: ");
+    scanf("%d", &escolha);
+
+    if (escolha < 1 || escolha > contador) {
+        printf("Número de tarefa inválido.\n");
+        return;
+    }
+
+    int tarefaIndex = escolha - 1;
+
+    int opcao;
+    printf("O que você deseja alterar?\n");
+    printf("1 - Título\n");
+    printf("2 - Prioridade\n");
+    printf("3 - Descrição\n");
+    printf("4 - Categoria\n");
+    printf("5 - Estado\n");
+    scanf("%d", &opcao);
+
+    switch (opcao) {
+        case 1:
+            printf("Digite o novo título: ");
+            scanf(" %99[^\n]", tarefas[tarefaIndex].titulo);
+            break;
+        case 2:
+            printf("Digite a nova prioridade: ");
+            scanf("%d", &tarefas[tarefaIndex].prioridade);
+            break;
+        case 3:
+            printf("Digite a nova descrição: ");
+            scanf(" %299[^\n]", tarefas[tarefaIndex].descricao);
+            break;
+        case 4:
+            printf("Digite a nova categoria: ");
+            scanf(" %99[^\n]", tarefas[tarefaIndex].categoria);
+            break;
+        case 5:
+            printf("Digite o novo estado (1 - Completo, 2 - Em andamento, 3 - Não iniciado): ");
+            scanf("%d", &tarefas[tarefaIndex].estado);
+            break;
+        default:
+            printf("Opção inválida.\n");
+            break;
+    }
+
+    salvarTarefas(tarefas, contador);
+    printf("Tarefa alterada com sucesso!\n");
 }
