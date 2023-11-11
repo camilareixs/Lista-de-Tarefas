@@ -17,6 +17,11 @@ void removerTarefa(struct Tarefa tarefas[], int *contador);
 void alterarTarefa(struct Tarefa tarefas[], int *contador);
 void filtrarPorPrioridade(struct Tarefa tarefas[], int contador);
 void filtrarPorEstado(struct Tarefa tarefas[], int contador);
+void filtrarPorCategoriaPrioridade(struct Tarefa tarefas[], int contador, char categoriaFiltrar[]);
+void filtrarPorPrioridadeECategoria(struct Tarefa tarefas[], int contador, char categoriaFiltrar[], int prioridadeFiltrar);
+void exportarPorPrioridade(struct Tarefa tarefas[], int contador, int prioridadeExportar);
+void exportarPorCategoria(struct Tarefa tarefas[], int contador, char categoriaExportar[]);
+void exportarPorPrioridadeECategoria(struct Tarefa tarefas[], int contador, int prioridadeExportar, char categoriaExportar[]);
 
 
 #endif

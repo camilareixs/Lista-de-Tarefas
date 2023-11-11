@@ -24,7 +24,11 @@ int main() {
         printf("5 - Fitrar por prioridade\n");
         printf("6 - Fitrar por estado\n");
         printf("7 - Fitrar por categoria\n");
-        printf("8 - Sair\n");
+        printf("8 - Fitrar por prioridade e categoria\n");
+        printf("9 - Exportar tarefas por prioridade\n");
+        printf("10 - Exportar tarefas por categoria\n");
+        printf("11 - Exportar tarefas por prioridade e categoria\n");
+        printf("12 - Sair\n");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -58,6 +62,45 @@ int main() {
                 }
                 break;   
             case 8:
+          {
+            char categoriaFiltrar[100];
+            int prioridadeFiltrar;
+            printf("Digite a categoria para filtrar: ");
+            scanf(" %99[^\n]", categoriaFiltrar);
+            printf("Digite a prioridade para filtrar (de 0 a 10): ");
+            scanf("%d", &prioridadeFiltrar);
+            filtrarPorPrioridadeECategoria(tarefas, contador, categoriaFiltrar, prioridadeFiltrar);
+          }
+          break;
+            case 9:
+          {
+            int prioridadeExportar;
+            printf("Digite a prioridade para exportar: ");
+            scanf("%d", &prioridadeExportar);
+            exportarPorPrioridade(tarefas, contador, prioridadeExportar);
+          }
+          break;
+          case 10:
+          {
+              char categoriaExportar[100];
+              printf("Digite a categoria para exportar: ");
+              scanf(" %99[^\n]", categoriaExportar);
+              exportarPorCategoria(tarefas, contador, categoriaExportar);
+          }
+          break;
+          case 11:
+          {
+              int prioridadeExportar;
+              char categoriaExportar[100];
+              printf("Digite a prioridade para exportar: ");
+              scanf("%d", &prioridadeExportar);
+              printf("Digite a categoria para exportar: ");
+              scanf(" %99[^\n]", categoriaExportar);
+              exportarPorPrioridadeECategoria(tarefas, contador, prioridadeExportar, categoriaExportar);
+          }
+          break;
+          
+            case 12:
                 salvarTarefas(tarefas, contador);
                 return 0;
             default:

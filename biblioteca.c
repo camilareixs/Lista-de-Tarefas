@@ -227,3 +227,152 @@ void filtrarPorEstado(struct Tarefa tarefas[], int contador) {
         printf("Nenhuma tarefa encontrada com estado %d.\n", estadoFiltrar);
     }
 }
+
+void filtrarPorCategoriaPrioridade(struct Tarefa tarefas[], int contador, char categoriaFiltrar[]) {
+    int tarefasEncontradas = 0;
+
+    printf("Tarefas na categoria '%s' com prioridade ordenada da maior para a menor:\n", categoriaFiltrar);
+  
+    for (int i = 0; i < contador - 1; i++) {
+        for (int j = 0; j < contador - i - 1; j++) {
+            if (tarefas[j].prioridade < tarefas[j + 1].prioridade) {
+            
+                struct Tarefa temp = tarefas[j];
+                tarefas[j] = tarefas[j + 1];
+                tarefas[j + 1] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < contador; i++) {
+        if (strcmp(tarefas[i].categoria, categoriaFiltrar) == 0) {
+            tarefasEncontradas++;
+            printf("%d - Título: %s\n", tarefasEncontradas, tarefas[i].titulo);
+            printf("   Prioridade: %d\n", tarefas[i].prioridade);
+            printf("   Descrição: %s\n", tarefas[i].descricao);
+            printf("   Categoria: %s\n", tarefas[i].categoria);
+            printf("   Estado: %d\n", tarefas[i].estado);
+        }
+    }
+
+    if (tarefasEncontradas == 0) {
+        printf("Nenhuma tarefa encontrada na categoria '%s'.\n", categoriaFiltrar);
+    }
+}
+
+void filtrarPorPrioridadeECategoria(struct Tarefa tarefas[], int contador, char categoriaFiltrar[], int prioridadeFiltrar) {
+    int tarefasEncontradas = 0;
+
+    printf("Tarefas na categoria '%s' e com prioridade %d:\n", categoriaFiltrar, prioridadeFiltrar);
+
+    for (int i = 0; i < contador; i++) {
+        if (strcmp(tarefas[i].categoria, categoriaFiltrar) == 0 && tarefas[i].prioridade == prioridadeFiltrar) {
+            tarefasEncontradas++;
+            printf("%d - Título: %s\n", tarefasEncontradas, tarefas[i].titulo);
+            printf("   Prioridade: %d\n", tarefas[i].prioridade);
+            printf("   Descrição: %s\n", tarefas[i].descricao);
+            printf("   Categoria: %s\n", tarefas[i].categoria);
+            printf("   Estado: %d\n", tarefas[i].estado);
+        }
+    }
+
+    if (tarefasEncontradas == 0) {
+        printf("Nenhuma tarefa encontrada na categoria '%s' com prioridade %d.\n", categoriaFiltrar, prioridadeFiltrar);
+    }
+}
+
+void exportarPorPrioridade(struct Tarefa tarefas[], int contador, int prioridadeExportar) {
+    char nomeArquivoExportacao[100];
+    printf("Digite o nome do arquivo para exportar: ");
+    scanf(" %99[^\n]", nomeArquivoExportacao);
+
+    FILE *arquivoExportacao = fopen(nomeArquivoExportacao, "w");
+
+    if (arquivoExportacao == NULL) {
+        printf("Erro ao criar o arquivo de exportação.\n");
+        return;
+    }
+
+    fprintf(arquivoExportacao, "Prioridade | Categoria | Estado | Descrição\n");
+
+    for (int i = 0; i < contador; i++) {
+        if (tarefas[i].prioridade == prioridadeExportar) {
+            fprintf(arquivoExportacao, "%d | %s | %d | %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].estado, tarefas[i].descricao);
+        }
+    }
+
+    fclose(arquivoExportacao);
+    printf("Tarefas exportadas com sucesso para o arquivo '%s'.\n", nomeArquivoExportacao);
+}
+
+void exportarPorCategoria(struct Tarefa tarefas[], int contador, char categoriaExportar[]) {
+    char nomeArquivoExportacao[100];
+    printf("Digite o nome do arquivo para exportar: ");
+    scanf(" %99[^\n]", nomeArquivoExportacao);
+
+    FILE *arquivoExportacao = fopen(nomeArquivoExportacao, "w");
+
+    if (arquivoExportacao == NULL) {
+        printf("Erro ao criar o arquivo de exportação.\n");
+        return;
+    }
+
+    // Ordenar as tarefas por prioridade antes de exportar
+    for (int i = 0; i < contador - 1; i++) {
+        for (int j = 0; j < contador - i - 1; j++) {
+            if (tarefas[j].prioridade < tarefas[j + 1].prioridade) {
+                // Trocar as posições se a prioridade for maior
+                struct Tarefa temp = tarefas[j];
+                tarefas[j] = tarefas[j + 1];
+                tarefas[j + 1] = temp;
+            }
+        }
+    }
+
+    fprintf(arquivoExportacao, "Prioridade | Categoria | Estado | Descrição\n");
+
+    for (int i = 0; i < contador; i++) {
+        if (strcmp(tarefas[i].categoria, categoriaExportar) == 0) {
+            fprintf(arquivoExportacao, "%d | %s | %d | %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].estado, tarefas[i].descricao);
+        }
+    }
+
+    fclose(arquivoExportacao);
+    printf("Tarefas exportadas com sucesso para o arquivo '%s'.\n", nomeArquivoExportacao);
+}
+
+void exportarPorPrioridadeECategoria(struct Tarefa tarefas[], int contador, int prioridadeExportar, char categoriaExportar[]) {
+    char nomeArquivoExportacao[100];
+    printf("Digite o nome do arquivo para exportar: ");
+    scanf(" %99[^\n]", nomeArquivoExportacao);
+
+    FILE *arquivoExportacao = fopen(nomeArquivoExportacao, "w");
+
+    if (arquivoExportacao == NULL) {
+        printf("Erro ao criar o arquivo de exportação.\n");
+        return;
+    }
+
+    // Ordenar as tarefas por prioridade antes de exportar
+    for (int i = 0; i < contador - 1; i++) {
+        for (int j = 0; j < contador - i - 1; j++) {
+            if (tarefas[j].prioridade < tarefas[j + 1].prioridade) {
+                // Trocar as posições se a prioridade for maior
+                struct Tarefa temp = tarefas[j];
+                tarefas[j] = tarefas[j + 1];
+                tarefas[j + 1] = temp;
+            }
+        }
+    }
+
+    fprintf(arquivoExportacao, "Prioridade | Categoria | Estado | Descrição\n");
+
+    for (int i = 0; i < contador; i++) {
+        if (strcmp(tarefas[i].categoria, categoriaExportar) == 0 && tarefas[i].prioridade == prioridadeExportar) {
+            fprintf(arquivoExportacao, "%d | %s | %d | %s\n", tarefas[i].prioridade, tarefas[i].categoria, tarefas[i].estado, tarefas[i].descricao);
+        }
+    }
+
+    fclose(arquivoExportacao);
+    printf("Tarefas exportadas com sucesso para o arquivo '%s'.\n", nomeArquivoExportacao);
+}
