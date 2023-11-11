@@ -16,10 +16,10 @@ int main() {
     carregarTarefas(tarefas, &contador);
 
     while (1) {
-        printf("\nOlá, o que você gostaria de fazer?\n");
+        printf("\nOlá, vamos nos organizar! O que você gostaria de fazer?\n");
         printf("1 - Adicionar nova tarefa\n");
         printf("2 - Listar todas as tarefas\n");
-        printf("3 - Remover tarefa por título\n");
+        printf("3 - Remover uma tarefa pelo título\n");
         printf("4 - Alterar uma tarefa\n");
         printf("5 - Fitrar por prioridade\n");
         printf("6 - Fitrar por estado\n");
@@ -56,7 +56,7 @@ int main() {
             case 7:
                 {
                     char categoriaFiltrar[100];
-                    printf("Digite a categoria para filtrar: ");
+                    printf("Qual categoria voce quer filtrar?: ");
                     scanf(" %99[^\n]", categoriaFiltrar);
                     filtrarPorCategoriaPrioridade(tarefas, contador, categoriaFiltrar);
                 }
@@ -65,9 +65,9 @@ int main() {
           {
             char categoriaFiltrar[100];
             int prioridadeFiltrar;
-            printf("Digite a categoria para filtrar: ");
+            printf("Qual categoria voce quer filtrar?: ");
             scanf(" %99[^\n]", categoriaFiltrar);
-            printf("Digite a prioridade para filtrar (de 0 a 10): ");
+            printf("Por qual prioridade voce quer filtrar?(de 0 a 10): ");
             scanf("%d", &prioridadeFiltrar);
             filtrarPorPrioridadeECategoria(tarefas, contador, categoriaFiltrar, prioridadeFiltrar);
           }
@@ -102,6 +102,7 @@ int main() {
           
             case 12:
                 salvarTarefas(tarefas, contador);
+                printf("Até logo! Não esqueça de sempre conferir as suas tarefas.\n");
                 return 0;
             default:
                 printf("Opção inválida. Por favor, escolha novamente.\n");

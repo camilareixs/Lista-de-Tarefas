@@ -30,7 +30,7 @@ void salvarTarefas(struct Tarefa tarefas[], int contador) {
 
 void cadastrarTarefa(struct Tarefa tarefas[], int *contador) {
     if (*contador >= 100) {
-        printf("Ops, você já tem muitas tarefas! Não é possível adicionar mais.\n");
+        printf("Opa! Você já tem muitas tarefas! Não é possível adicionar mais.\n");
         return;
     }
 
