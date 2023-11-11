@@ -21,7 +21,10 @@ int main() {
         printf("2 - Listar todas as tarefas\n");
         printf("3 - Remover tarefa por título\n");
         printf("4 - Alterar uma tarefa\n");
-        printf("5 - Sair\n");
+        printf("5 - Fitrar por prioridade\n");
+        printf("6 - Fitrar por estado\n");
+        printf("7 - Fitrar por categoria\n");
+        printf("8 - Sair\n");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -41,6 +44,20 @@ int main() {
                 salvarTarefas(tarefas, contador);
                 break;
             case 5:
+                filtrarPorPrioridade(tarefas, contador);
+                break;
+            case 6:
+                filtrarPorEstado(tarefas, contador);
+                break;
+            case 7:
+                {
+                    char categoriaFiltrar[100];
+                    printf("Digite a categoria para filtrar: ");
+                    scanf(" %99[^\n]", categoriaFiltrar);
+                    filtrarPorCategoriaPrioridade(tarefas, contador, categoriaFiltrar);
+                }
+                break;   
+            case 8:
                 salvarTarefas(tarefas, contador);
                 return 0;
             default:

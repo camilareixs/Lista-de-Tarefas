@@ -15,5 +15,8 @@ void cadastrarTarefa(struct Tarefa tarefas[], int *contador);
 void listarTarefas(struct Tarefa tarefas[], int contador);
 void removerTarefa(struct Tarefa tarefas[], int *contador);
 void alterarTarefa(struct Tarefa tarefas[], int *contador);
+void filtrarPorPrioridade(struct Tarefa tarefas[], int contador);
+void filtrarPorEstado(struct Tarefa tarefas[], int contador);
+
 
 #endif

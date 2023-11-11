@@ -177,3 +177,53 @@ void alterarTarefa(struct Tarefa tarefas[], int *contador) {
     salvarTarefas(tarefas, contador);
     printf("Tarefa alterada com sucesso!\n");
 }
+
+void filtrarPorPrioridade(struct Tarefa tarefas[], int contador) {
+    int prioridadeFiltrar;
+    printf("Digite a prioridade para filtrar (de 0 a 10): ");
+    scanf("%d", &prioridadeFiltrar);
+
+    int tarefasEncontradas = 0;
+
+    printf("Tarefas com prioridade %d:\n", prioridadeFiltrar);
+
+    for (int i = 0; i < contador; i++) {
+        if (tarefas[i].prioridade == prioridadeFiltrar) {
+            tarefasEncontradas++;
+            printf("%d - Título: %s\n", tarefasEncontradas, tarefas[i].titulo);
+            printf("   Prioridade: %d\n", tarefas[i].prioridade);
+            printf("   Descrição: %s\n", tarefas[i].descricao);
+            printf("   Categoria: %s\n", tarefas[i].categoria);
+            printf("   Estado: %d\n", tarefas[i].estado);
+        }
+    }
+
+    if (tarefasEncontradas == 0) {
+        printf("Nenhuma tarefa encontrada com prioridade %d.\n", prioridadeFiltrar);
+    }
+}
+
+void filtrarPorEstado(struct Tarefa tarefas[], int contador) {
+    int estadoFiltrar;
+    printf("Digite o estado para filtrar (1 - Completo, 2 - Em andamento, 3 - Não iniciado): ");
+    scanf("%d", &estadoFiltrar);
+
+    int tarefasEncontradas = 0;
+
+    printf("Tarefas com estado %d:\n", estadoFiltrar);
+
+    for (int i = 0; i < contador; i++) {
+        if (tarefas[i].estado == estadoFiltrar) {
+            tarefasEncontradas++;
+            printf("%d - Título: %s\n", tarefasEncontradas, tarefas[i].titulo);
+            printf("   Prioridade: %d\n", tarefas[i].prioridade);
+            printf("   Descrição: %s\n", tarefas[i].descricao);
+            printf("   Categoria: %s\n", tarefas[i].categoria);
+            printf("   Estado: %d\n", tarefas[i].estado);
+        }
+    }
+
+    if (tarefasEncontradas == 0) {
+        printf("Nenhuma tarefa encontrada com estado %d.\n", estadoFiltrar);
+    }
+}
